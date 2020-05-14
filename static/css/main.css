@@ -53,8 +53,8 @@ h1,h2,h3,h4,h5,h6{
 	left: 16px;
 	width: 100px;
 	height: 26px;
-	background: #181818;
 	color: #white;
+	border: solid 2px BLUE;
 
 }
 .product_image

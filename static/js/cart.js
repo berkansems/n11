@@ -7,12 +7,35 @@ for (i = 0; i < updateBtns.length; i++) {
 		console.log('productId:', productId, ', Action:', action)
 		console.log('USER:', user)
 		if(user == 'AnonymousUser'){
-		    console.log('Not logged in')
+		    addCookieItem(productId,action)
 		}else{
 		    updateUserOrder(productId,action)
 		}
 	})
 }
+
+
+function addCookieItem(productId,action){
+    if(action=='add'){
+        if(cart[productId]== undefined ){
+             cart[productId] = {'quantity':1}
+
+        }else{
+            cart[productId]['quantity'] += 1
+        }
+    }
+    if (action=='remove'){
+        cart[productId]['quantity'] -= 1
+        if (cart[productId]['quantity'] <= 0){
+            delete cart[productId]
+        }
+
+    }
+    console.log('Cart:', cart)
+    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    location.reload()
+}
+
 
 function updateUserOrder(productId,action){
     console.log('User is logged in, sending data...')
@@ -24,13 +47,13 @@ function updateUserOrder(productId,action){
                 'Content-Type':'application/json',
                 'X-CSRFToken':csrftoken,
             },
+            //inorder to send data to backend we should use stringify
             body:JSON.stringify({'productId':productId,'action':action})
         })
         .then((response) =>{
             return response.json()
         })
         .then((data) =>{
-
             console.log('data:',data)
             location.reload()
         })
