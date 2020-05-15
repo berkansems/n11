@@ -29,8 +29,11 @@
 			return cookieValue;
 		}
 		var csrftoken = getToken('csrftoken');
+
+		//Cookies are small pieces of data stored as text on the client's computer.
 		function getCookie(name) {
 				// Split cookie string and get all individual name=value pairs in an array
+				// in session can use information when user in session
 				var cookieArr = document.cookie.split(";");
 
 				// Loop through the array elements
@@ -49,7 +52,8 @@
 				return null;
 		}
 		var cart = JSON.parse(getCookie('cart'))
-
+		//JSON.parse  JSON nesnelerini JavaScript'e dönüştürmek için kullanılır.
+		//JSON.stringify
 
 		if (cart == undefined){
 			cart = {}
